@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mizan High School | Student Result Checker</title>
+  <link rel="stylesheet" href="./mhs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">Mizan High School</div>
+    <ul>
+      <li><a href="#" id="home-link">Home</a></li>
+      <li><a href="#" id="login-link">Login</a></li>
+      <li><a href="#" id="signup-link">Sign Up</a></li>
+    </ul>
+  </nav>
+  <div class="container" id="main-content">
+    <section class="hero">
+      <h1>Welcome to Mizan High School Student Result Checker</h1>
+      <p>Check your academic results online, quickly and securely!</p>
+      <button id="get-started-btn">Get Started</button>
+    </section>
+    <!-- Login Page -->
+    <section class="form-section" id="login-section" style="display:none;">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input type="text" placeholder="Username" id="login-username" required>
+        <input type="password" placeholder="Password" id="login-password" required>
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+        <div id="login-error" class="error-msg"></div>
+      </form>
+    </section>
+    <!-- Sign Up Page -->
+    <section class="form-section" id="signup-section" style="display:none;">
+      <h2>Sign Up</h2>
+      <form id="signup-form">
+        <input type="text" placeholder="Full Name" id="signup-name" required>
+        <input type="text" placeholder="Username" id="signup-username" required>
+        <input type="password" placeholder="Password" id="signup-password" required>
+        <select id="signup-role" required>
+          <option value="">Select Role</option>
+          <option value="student">Student</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Sign Up</button>
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        <div id="signup-error" class="error-msg"></div>
+      </form>
+    </section>
+    <!-- Student Dashboard -->
+    <section id="student-dashboard" style="display:none;">
+      <div class="student-profile-card">
+        <div class="profile-pic"><i class="fas fa-user-graduate"></i></div>
+        <div>
+          <h2>Welcome, <span id="student-name"></span>!</h2>
+        </div>
+      </div>
+      <div class="dashboard-cards">
+        <!-- Cards for semester, average, status etc. can be added here -->
+      </div>
+      <h3>Your Results:</h3>
+      <table id="result-table">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Semester 1</th>
+            <th>Semester 2</th>
+            <th>Average</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <button id="student-logout">Logout</button>
+    </section>
+    <!-- Admin Dashboard with Sidebar -->
+    <section id="admin-dashboard" style="display:none;">
+      <div class="admin-flex">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-logo"><i class="fas fa-school"></i></div>
+          <ul>
+            <li><a href="#" id="sidebar-marks-adder" class="active"><i class="fas fa-pen"></i> Marks Adder</a></li>
+            <li><a href="#" id="sidebar-attendance"><i class="fas fa-calendar-check"></i> Attendance</a></li>
+            <li><a href="#" id="sidebar-top-scorer"><i class="fas fa-trophy"></i> Top Scorer</a></li>
+            <li><a href="#" id="sidebar-all-results"><i class="fas fa-list"></i> All Results</a></li>
+          </ul>
+        </aside>
+        <div class="admin-main">
+          <!-- Dashboard Cards -->
+          <div class="dashboard-cards" id="admin-dashboard-cards">
+            <!-- Cards will be rendered by JS -->
+          </div>
+          <!-- Marks Adder -->
+          <div id="admin-section-marks-adder" class="admin-section">
+            <h2><i class="fas fa-pen"></i> Manage Student Results</h2>
+            <form id="result-entry-form">
+              <input type="text" placeholder="Student Username" id="result-student-username" required>
+              <input type="text" placeholder="Subject" id="result-subject" required>
+              <input type="number" placeholder="Semester 1 Score" id="result-score-1" min="0" max="100" required>
+              <input type="number" placeholder="Semester 2 Score" id="result-score-2" min="0" max="100" required>
+              <button type="submit">Add/Update Result</button>
+              <div id="result-entry-error" class="error-msg"></div>
+            </form>
+          </div>
+          <!-- Attendance -->
+          <div id="admin-section-attendance" class="admin-section" style="display:none;">
+            <h2><i class="fas fa-calendar-check"></i> Student Attendance</h2>
+            <form id="attendance-form">
+              <input type="text" placeholder="Student Username" id="attendance-student-username" required>
+              <input type="number" placeholder="Days Present" id="attendance-days-present" min="0" required>
+              <input type="number" placeholder="Total Days" id="attendance-total-days" min="1" required>
+              <button type="submit">Add/Update Attendance</button>
+              <div id="attendance-entry-error" class="error-msg"></div>
+            </form>
+            <h3>Attendance Records</h3>
+            <table id="attendance-table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>Days Present</th>
+                  <th>Total Days</th>
+                  <th>Attendance (%)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- Top Scorer -->
+          <div id="admin-section-top-scorer" class="admin-section" style="display:none;">
+            <h2><i class="fas fa-trophy"></i> Top Scorers</h2>
+            <table id="top-scorer-table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>Average</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- All Results -->
+          <div id="admin-section-all-results" class="admin-section" style="display:none;">
+            <h2><i class="fas fa-list"></i> All Students & Results</h2>
+            <table id="admin-student-table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Subjects & Scores</th>
+                  <th>Average</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <button id="admin-logout">Logout</button>
+        </div>
+      </div>
+      <p class="admin-welcome">Welcome, <span id="admin-name"></span>!</p>
+    </section>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
